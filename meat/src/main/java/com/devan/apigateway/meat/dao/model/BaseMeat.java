@@ -16,5 +16,10 @@ public abstract class BaseMeat implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long orderNo;
+    private Long sandwichNo;
+
+    public BaseMeat(Long sandwichNo) {
+        this.sandwichNo = sandwichNo;
+    }
+
 }

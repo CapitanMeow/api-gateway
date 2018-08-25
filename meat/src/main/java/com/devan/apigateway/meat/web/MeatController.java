@@ -6,22 +6,30 @@ import com.devan.apigateway.meat.service.MeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/")
 public class MeatController {
 
-    @Autowired
+    final
     MeatService service;
 
-    @PostMapping(value = "bacon")
-    public void createBacon(@RequestParam int amount){
+    @Autowired
+    public MeatController(MeatService service) {
+        this.service = service;
+    }
 
-        service.prepareBacon(amount);
+    @PostMapping(value = "bacon")
+    public List<MeatDto> createBacon(@RequestParam Long sandwichNo, @RequestParam int amount) {
+
+       return service.prepareBacon(amount, sandwichNo);
     }
 
     @PostMapping(value = "ham")
-    public void createHam(@RequestParam int amount){
-        service.prepareHam(amount);
+    public List<MeatDto> createHam(@RequestParam Long sandwichNo, @RequestParam int amount) {
+
+        return service.prepareHam(amount, sandwichNo);
     }
 
     @GetMapping(value = "bacon")
@@ -35,6 +43,4 @@ public class MeatController {
 
         return service.getCount(Ham.class);
     }
-
-
 }
