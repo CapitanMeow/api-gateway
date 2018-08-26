@@ -1,14 +1,12 @@
 package com.devan.apigateway.meat.service;
 
-import com.devan.apigateway.meat.dao.model.Bacon;
-import com.devan.apigateway.meat.dao.model.Ham;
 import com.devan.apigateway.meat.dao.repository.BaconRepository;
 import com.devan.apigateway.meat.dao.repository.HamRepository;
-import com.devan.apigateway.meat.web.MeatDto;
+import com.devan.apigateway.meat.web.dto.BaconDto;
+import com.devan.apigateway.meat.web.dto.HamDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,38 +24,25 @@ public class MeatService {
         this.hamRepository = hamRepository;
     }
 
-    public long getCount(Class meat){
-        if(meat.getSimpleName().equals("Bacon")){
+    public long getCount(Class meat) {
+        if (meat.getSimpleName().equals("Bacon")) {
 
             return baconRepository.count();
-        }
-        else if(meat.getSimpleName().equals("Ham")){
+        } else if (meat.getSimpleName().equals("Ham")) {
 
             return hamRepository.count();
         }
 
-        return 0;
+        throw new IllegalArgumentException("Bad class name");
     }
 
-    public List<MeatDto> prepareBacon(int amount, Long sandwichNo) {
-        List<MeatDto> meatList = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            Bacon bacon = new Bacon(sandwichNo);
-            baconRepository.save(bacon);
-            meatList.add(new MeatDto().fromEntity(bacon));
-        }
-
-        return meatList;
+    public void prepareBacon(List<BaconDto> baconList) {
+        baconList.stream()
+                .forEach(baconDto -> baconRepository.save(baconDto.toEntity()));
     }
 
-    public List<MeatDto> prepareHam(int amount, Long sandwichNo) {
-        List<MeatDto> meatList = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            Ham ham = new Ham(sandwichNo);
-            hamRepository.save(ham);
-            meatList.add(new MeatDto().fromEntity(ham));
-        }
-
-        return meatList;
+    public void prepareHam(List<HamDto> hamList) {
+        hamList.stream()
+                .forEach(hamDto -> hamRepository.save(hamDto.toEntity()));
     }
 }

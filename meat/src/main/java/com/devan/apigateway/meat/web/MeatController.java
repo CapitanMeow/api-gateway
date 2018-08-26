@@ -3,14 +3,18 @@ package com.devan.apigateway.meat.web;
 import com.devan.apigateway.meat.dao.model.Bacon;
 import com.devan.apigateway.meat.dao.model.Ham;
 import com.devan.apigateway.meat.service.MeatService;
+import com.devan.apigateway.meat.web.dto.BaconDto;
+import com.devan.apigateway.meat.web.dto.HamDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/")
-public class MeatController {
+public class MeatController extends BaseController{
 
     final
     MeatService service;
@@ -21,15 +25,18 @@ public class MeatController {
     }
 
     @PostMapping(value = "bacon")
-    public List<MeatDto> createBacon(@RequestParam Long sandwichNo, @RequestParam int amount) {
+    public ResponseEntity createBacon(@RequestBody List<BaconDto> baconList) {
 
-       return service.prepareBacon(amount, sandwichNo);
+        service.prepareBacon(baconList);
+
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping(value = "ham")
-    public List<MeatDto> createHam(@RequestParam Long sandwichNo, @RequestParam int amount) {
+    public ResponseEntity createHam(@RequestBody List<HamDto> hamList) {
+        service.prepareHam(hamList);
 
-        return service.prepareHam(amount, sandwichNo);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "bacon")

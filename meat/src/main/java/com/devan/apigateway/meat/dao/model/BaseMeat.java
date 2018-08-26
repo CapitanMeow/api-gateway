@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -16,10 +17,7 @@ public abstract class BaseMeat implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private ZonedDateTime creationDate;
+
     private Long sandwichNo;
-
-    public BaseMeat(Long sandwichNo) {
-        this.sandwichNo = sandwichNo;
-    }
-
 }
