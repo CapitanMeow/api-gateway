@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 @Setter
 public class TomatoDto extends VegetableDto {
     
-    public TomatoType type;
+    private TomatoType type;
 
     public TomatoDto fromEntity(Tomato tomato) {
         setType(tomato.getType());

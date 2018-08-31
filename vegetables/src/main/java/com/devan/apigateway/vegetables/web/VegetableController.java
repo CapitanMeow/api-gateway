@@ -18,7 +18,7 @@ import java.util.List;
 @RestController(value = "/")
 public class VegetableController {
 
-    final
+    private final
     VegetableService service;
 
     @Autowired
@@ -42,14 +42,14 @@ public class VegetableController {
     }
 
     @GetMapping(value = "tomato")
-    public Long getTomatoCount() {
+    public ResponseEntity<Long> getTomatoCount() {
 
-        return service.getCount(Tomato.class);
+        return ResponseEntity.ok(service.getCount(Tomato.class));
     }
 
     @GetMapping(value = "lettuce")
-    public Long getLettuceCount() {
+    public ResponseEntity<Long> getLettuceCount() {
 
-        return service.getCount(Lettuce.class);
+        return ResponseEntity.ok(service.getCount(Lettuce.class));
     }
 }

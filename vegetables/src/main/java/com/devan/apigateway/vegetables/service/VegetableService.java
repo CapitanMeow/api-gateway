@@ -35,12 +35,12 @@ public class VegetableService {
     }
 
     public void prepareTomato(List<TomatoDto> tomatoList) {
-        tomatoList.stream()
+        tomatoList
                 .forEach(tomatoDto -> tomatoRepository.save(tomatoDto.toEntity()));
     }
 
-    public void prepareLettuce(List<LettuceDto> LettuceList) {
-        LettuceList.stream()
+    public void prepareLettuce(List<LettuceDto> lettuceList) {
+        lettuceList
                 .forEach(lettuceDto -> lettuceRepository.save(lettuceDto.toEntity()));
     }
 }
