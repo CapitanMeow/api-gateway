@@ -1,0 +1,18 @@
+version: '2.2'
+services:
+  bread:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: bread
+    links: 
+      - db
+    ports:
+      - "8080:8080"
+  db:
+    image: mariadb:10.3.9
+    ports:
+      - 3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
